@@ -12,21 +12,28 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El nombre es obligatorio")
+    @NotBlank
     private String nombre;
 
-    @Email(message = "Email no válido")
-    @NotBlank(message = "El email es obligatorio")
+    @NotBlank
     @Column(unique = true)
     private String email;
 
-    private LocalDateTime fechaRegistro;
+    @NotBlank
+    private String password;
 
-    public Usuario() {
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
+
+    public Usuario() {}
+
+    public Usuario(String nombre, String email, String password) {
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
         this.fechaRegistro = LocalDateTime.now();
     }
 
-    // Getters y setters
+    // getters y setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -35,6 +42,9 @@ public class Usuario {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     public LocalDateTime getFechaRegistro() { return fechaRegistro; }
     public void setFechaRegistro(LocalDateTime fechaRegistro) { this.fechaRegistro = fechaRegistro; }

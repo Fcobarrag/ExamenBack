@@ -14,8 +14,9 @@ public class JwtUtil {
     private final SecretKey key;
     private final long expirationMs;
 
-    public JwtUtil(@Value("${jwt.secret}") String secret,
-                   @Value("${jwt.expiration-ms}") long expirationMs) {
+    public JwtUtil(@Value("${jwt.secret:mi_clave_secreta_muy_segura_1234567890123456}") String secret,
+                   @Value("${jwt.expiration-ms:86400000}") long expirationMs) {
+        // secret must be at least 256 bits for HS256
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
         this.expirationMs = expirationMs;
     }
@@ -31,7 +32,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String getSubject(String token) {
+    public String extractSubject(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -40,11 +41,11 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    public boolean validateToken(String token) {
+    public boolean isTokenValid(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            extractSubject(token);
             return true;
-        } catch (JwtException | IllegalArgumentException ex) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }

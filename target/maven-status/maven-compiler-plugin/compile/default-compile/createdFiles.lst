@@ -1,0 +1,6 @@
+com\api\usuarios\controller\AuthController.class
+com\api\usuarios\SpringbootApiUsuariosApplication.class
+com\api\usuarios\service\UsuarioService.class
+com\api\usuarios\security\JwtUtil.class
+com\api\usuarios\entity\Usuario.class
+com\api\usuarios\repository\UsuarioRepository.class

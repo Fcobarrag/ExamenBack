@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,17 +19,21 @@ public class UsuarioService {
         this.repo = repo;
     }
 
+    public Usuario guardar(Usuario u) {
+        u.setFechaRegistro(LocalDateTime.now());
+        return repo.save(u);
+    }
+
     public List<Usuario> listar() {
         return repo.findAll();
     }
 
-    public Usuario obtener(Long id) {
-        return repo.findById(id).orElse(null);
+    public Optional<Usuario> findByEmail(String email) {
+        return repo.findByEmail(email);
     }
 
-    public Usuario crear(Usuario u) {
-        u.setFechaRegistro(LocalDateTime.now());
-        return repo.save(u);
+    public Usuario buscarPorId(Long id) {
+        return repo.findById(id).orElse(null);
     }
 
     public Usuario actualizar(Long id, Usuario nuevo) {
