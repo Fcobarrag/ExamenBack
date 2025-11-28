@@ -12,7 +12,7 @@ Proyecto ejemplo con:
 1. Asegúrate de tener Java 17 y Maven instalados.
 2. Crea la base de datos MySQL:
    ```sql
-   CREATE DATABASE usuariosdb;
+   CREATE DATABASE examen;
    ```
 3. Ajusta `src/main/resources/application.properties` con tu usuario/clave MySQL.
 4. Desde la carpeta del proyecto:
